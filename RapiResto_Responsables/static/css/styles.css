@@ -1,0 +1,73 @@
+
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    /* background: url("../assets/fondo01.png") no-repeat center ; */
+    background: rgba(225, 255, 117, 0.795);
+    background-size: cover;
+    width: 100%;
+}
+
+#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+.navbar {
+    background-color: rgb(255, 51, 0, 0.82);
+    margin-right: 0%;
+    margin-left: 0%;
+}
+
+#content-wrap {
+    padding-bottom: 2.5rem;    /* Footer height */
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;            /* Footer height */
+    background-color: rgb(255, 51, 0, 0.85);
+}
+
+/* Valores para página de selección de sucursal */
+
+#select-page {
+    background: url(../assets/fondo02.jpg) no-repeat;
+    background-size: cover;
+    width: 100%;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 15px;
+    line-height: 1.42857143;
+    color: rgb(0, 0, 0);
+    margin: 0;
+    position: fixed;
+}
+#lb1 {
+    width: 360px;
+    margin: 2% auto;
+}
+#lbbody {
+    background: rgb(255, 51, 0, 0.85);
+    padding: 20px;
+    border-top: 0;
+    color: #666;
+    border-radius: 10px;
+}
+#select-page p {
+    color: black;
+}
+#inner {
+    width: 200px;
+    height: 200px;
+    margin: 15px auto;
+}
+#textoLB {
+    text-align: center;
+    font-size: 16px;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script> 
+$(document).ready(function(){
+  $(".container").click(function(){
+  	var id = $(this).attr('id')
+    id = id + '_'
+    $('#' + id).slideToggle("slow");
+  });
+});
+</script>
+<style> 
+.container {
+  padding: 5px;
+  text-align: center;
+  background-color: rgba(0, 121, 19, 0.5);
+  border: solid 1px #c3c3c3;
+}
+
+.c {
+  display: none;
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="1"><img src= "https://lh5.googleusercontent.com/p/AF1QipPItRUMMc2YpzXDGoBngdH2_CzEYXUXmx00iN4W=w90-h90-n-k-no"></div>
+<div class="c" id="1_">Hello world!</div>
+<br>
+<div class="container" id="2">Click to slide the panel down or up</div>
+<div class="c" id="2_">Hello world!</div>
+
+</body>
+</html>
