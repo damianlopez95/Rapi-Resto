@@ -8,54 +8,60 @@
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     {% endblock css_styles %}
 </head>
-<body>
+
     {% block content %}
-        <div class="container-fluid" id='container-alimentos'>
-            <h1>{{ alimentosCarta.0.carta.nombre }}</h1> <br>
-            <div class="row-alimento">
-                {% for alimentoCarta in alimentosCarta %}
-                    <div class="col-12 col-md-4 col-lg-3 mb-4">
-                        <div class="card mx-auto text-center">
-                            {% if alimentoCarta.alimento.imagen != None %}
-                                <img class="img-fluid" src="/static/assets/{{alimentoCarta.alimento.imagen}}" class="card-img-top">
-                            {% endif %}
-                            <form method="post">
-                            {% csrf_token %}
-                            <div class="card-header">
-                                {{alimentoCarta.alimento.nombre}}
-                            </div>
-                            <div class="card-body">
-                                <li class="list-group-item">
-                                    <h5 class="card-title">Descripción</h5>
-                                    <p class="card-text">{{alimentoCarta.alimento.descripcion}}</p>
-                                </li>
-                                <li class="list-group-item">
-                                    <h5 class="card-title">Recomendaciones</h5>
-                                    {% for recomendacion in alimentoCarta.alimento.recomendaciones.all %}
-                                        <p class="card-text">{{recomendacion.nombre}}</p>
-                                    {% endfor %}
-                                </li>
-                                <li class="list-group-item">
-                                    <h5 class="card-title">${{alimentoCarta.alimento.precio}}</h5>
-                                </li>
-                                {% if alimentoCarta.stock == 0 %}
-                                    <p class="card-text">No disponible</p>
-                                {% else %}
-                                    <li class="list-group-item">
-                                        <p class="card-text">Disponibilidad: {{alimentoCarta.stock}}</p>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <input id="cantidadUser" type="number" name="cantidad">
-                                    </li>
-                                    <input id="alimento" type="hidden" name="alimento" value={{alimentoCarta.alimento.id}}><br>
-                                    <button type="submit" class="btn btn-warning btn-block btn-flat">Añadir</button>
+        <body class="fluid-container" id="vistaCarta">
+            <div class="container-fluid" id='container-alimentos'>
+                <h1>{{ alimentosCarta.0.carta.nombre }}</h1> <br>
+                <div class="row-alimento">
+                    {% for alimentoCarta in alimentosCarta %}
+                        <div class="col-12 col-md-4 col-lg-3 mb-4">
+                            <div class="card mx-auto text-center">
+                                {% if alimentoCarta.alimento.imagen != None %}
+                                    <img class="img-fluid" id='imagen-carta' src="/static/assets/{{alimentoCarta.alimento.imagen}}" class="card-img-top">
                                 {% endif %}
+                                <form method="post">
+                                {% csrf_token %}
+                                <div class="card-header">
+                                    {{alimentoCarta.alimento.nombre}}
+                                </div>
+                                <div class="card-body">
+                                    <li class="list-group-item">
+                                        <h5 class="card-title">Descripción</h5>
+                                        <p class="card-text">{{alimentoCarta.alimento.descripcion}}</p>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h5 class="card-title">Recomendaciones</h5>
+                                        {% for recomendacion in alimentoCarta.alimento.recomendaciones.all %}
+                                            <p class="card-text">{{recomendacion.nombre}}</p>
+                                        {% endfor %}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <h5 class="card-title">${{alimentoCarta.alimento.precio}}</h5>
+                                    </li>
+                                    {% if alimentoCarta.stock == 0 %}
+                                        <p class="card-text">No disponible</p>
+                                    {% else %}
+                                        <li class="list-group-item">
+                                            <p class="card-text">Disponibilidad: {{alimentoCarta.stock}}</p>
+                                        </li>
+                                        <li class="list-group-item">
+                                            {% if alimentoCarta.stock <= 4 %}
+                                                <input id="cantidadUser" type="number" name="cantidad" min="1" max={{alimentoCarta.stock}} value="0" style="text-align:center;">
+                                            {% else %}
+                                                <input id="cantidadUser" type="number" name="cantidad" min="1" max="4" value="0" style="text-align:center;">
+                                            {% endif %}
+                                        </li>
+                                        <input id="alimento" type="hidden" name="alimento" value={{alimentoCarta.alimento.id}}><br>
+                                        <button type="submit" class="btn btn-warning btn-block btn-flat">Añadir</button>
+                                    {% endif %}
+                                </div>
+                            </form>
+                            </div><br>
                             </div>
-                        </form>
-                        </div><br>
-                        </div>
-                {% endfor %}
-            </div> 
-        </div>
+                    {% endfor %}
+                </div> 
+            </div>
+        </body>
     {% endblock content %}
-</body>
+    

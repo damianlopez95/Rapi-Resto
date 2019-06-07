@@ -8,13 +8,11 @@
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     {% endblock css_styles %}
 </head>
-<body>
     {% block content %}
-        {% for carta in cartas %}
-            <h1>{{carta.nombre}}</h1>
-            {{carta.sucursal}}  
-            <a >   | <a href = "/carta/{{carta.id}}"> Ver</a>
-            <br>
-        {% endfor %}
+        <body class="fluid-container" id="vistaCartas">
+            {% for carta in cartas %}
+                <a href="/carta/{{carta.id}}"><img class="img-fluid" id="imagen-cartas" src="/static/assets/{{carta.imagen}}"/></a>
+            {% endfor %}
+        </body>
     {% endblock content %}
-</body>
+
