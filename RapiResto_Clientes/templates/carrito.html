@@ -1,58 +1,52 @@
-{% extends 'base.html' %}
+{% extends 'base_01.html' %}
 
-<head>
     {% block title %}
-        <title>Carrito de Compras</title>
-    {% endblock %}
-    {% block css %}
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Carrito</title>
+    {% endblock title %}
+    {% block css_styles %}
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    {% endblock %}
-</head>
-<body>
-    {% block content %}
-    <table>
-        <thead>
-            <tr>
-                <th>Alimento</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Subtotal</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for alimento, datos in lista.items %}
-                <tr>
-                    <form action="/delete" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="alimento" value={{alimento.id}}>
-                        <td>{{alimento.nombre}}</td>            
-                        <td>{{datos.0}}</td>
-                        <td>${{alimento.precio}}</td>            
-                        <td>${{datos.1}}</td>
-                        <td><button type="submit">Quitar</button></td>
-                </form>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <br>
-    <form action="/confirmar" method="post">
-        {% csrf_token %}
-        <p>Total: ${{total}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit">Confirmar pedido</button></p>
-    </form>
+    {% endblock css_styles %}
 
-    {% endblock %}
+    {% block content %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Alimento</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alimento, datos in lista.items %}
+                    <tr>
+                        <form action="/delete" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="alimento" value={{alimento.id}}>
+                            <td>{{alimento.nombre}}</td>            
+                            <td>{{datos.0}}</td>
+                            <td>${{alimento.precio}}</td>            
+                            <td>${{datos.1}}</td>
+                            <td><button type="submit">Quitar</button></td>
+                    </form>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <form action="/confirmar" method="post">
+            {% csrf_token %}
+            <p>Total: ${{total}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit">Confirmar pedido</button></p>
+        </form>
+    {% endblock content %}
 
     {% block app_javascript %}
-    <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready( function () {
-            $('table').DataTable();
-        } );
-    </script>
-    {% endblock %}
-</body>
-</html>
+        <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready( function () {
+                $('table').DataTable();
+            } );
+        </script>
+    {% endblock app_javascript %}

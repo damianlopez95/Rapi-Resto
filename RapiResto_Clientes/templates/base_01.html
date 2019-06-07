@@ -9,12 +9,12 @@
     
     {% block title %}
         <title>Bienvenido | RapiResto</title>
-    {% endblock %}
+    {% endblock title %}
 
-    {% block css %}
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static "css/styles.css" %}">
-    {% endblock %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    {% block css_styles %}
+    {% endblock css_styles %}
 </head>
 <body>
     <div id="page-container">
@@ -48,6 +48,6 @@
         });
     </script>
     {% block app_javascript %}
-    {% endblock %}
+    {% endblock app_javascript %}
 </body>
 </html>

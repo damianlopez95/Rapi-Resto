@@ -1,10 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'base_01.html' %}
 
 <head>
     {% block title %}
         <title>Lista de cartas</title>
+    {% endblock title %}
+    {% block  css_styles %}
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    {% endblock %}
+    {% endblock css_styles %}
 </head>
 <body>
     {% block content %}
@@ -14,5 +16,5 @@
             <a >   | <a href = "/carta/{{carta.id}}"> Ver</a>
             <br>
         {% endfor %}
-    {% endblock %}
+    {% endblock content %}
 </body>
