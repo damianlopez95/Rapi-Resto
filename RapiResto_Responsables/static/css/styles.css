@@ -22,7 +22,7 @@ body {
     padding-bottom: 2.5rem;    /* Footer height */
 }
 #footer {
-    position: absolute;
+    position: absolute !important;
     bottom: 0;
     width: 100%;
     height: 2.5rem;            /* Footer height */
@@ -159,5 +159,15 @@ body {
         padding: 2px;
         border: 2px solid #000;
     }
+}
+
+/* Valores para página del carrito de compras */
+
+#tableContainer {
+    background: white;
+    max-width: 100%;
+    padding-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
