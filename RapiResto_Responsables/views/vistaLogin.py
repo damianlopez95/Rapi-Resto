@@ -14,7 +14,7 @@ class VistaLogin(View) :
             if form.is_valid():
                 usuario = form.get_user()
                 login(request, usuario)
-                return redirect('sucursales')
+                return redirect('bienvenida')
         else:
             form = LoginForm()
 
@@ -24,4 +24,5 @@ class VistaLogin(View) :
 
         if request.method == 'POST':
             logout(request)
-            return redirect('sucursales')
+            return redirect('/')
+
