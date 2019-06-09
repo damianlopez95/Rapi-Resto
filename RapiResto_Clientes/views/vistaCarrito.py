@@ -58,7 +58,7 @@ class VistaCarrito(View):
                 #Actualizar stock de alimentos
                 # messages.info(request, 'Gracias por su compra. En minutos llegará su pedido..')
                 #Se notifica al encargado del pedido
-            return HttpResponseRedirect('/sucursales')
+            return HttpResponseRedirect('/')
 
     def getItems(request):
 

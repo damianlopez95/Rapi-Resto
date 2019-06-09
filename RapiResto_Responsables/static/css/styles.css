@@ -18,6 +18,9 @@ body {
     margin-right: 0%;
     margin-left: 0%;
 }
+#btnCarrito {
+    display: none;
+}
 #content-wrap {
     padding-bottom: 2.5rem;    /* Footer height */
 }
