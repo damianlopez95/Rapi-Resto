@@ -1,15 +1,15 @@
 {% load static %}
 
 <nav class="navbar navbar-expand navbar-light">
-    <a class="navbar-brand" href="#">RapiResto</a>
+    <a class="navbar-brand" href="/sucursales">RapiResto</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ml-auto">
-        <a class="nav-item nav-link active" id="btnInicio" href="#"><img src="{% static 'assets/inicio.png' %}" id="inicio-icono"><span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" id="btnCarrito" href="/carrito"><img src="{% static 'assets/carrito.png' %}" id="carrito-icono"></a>
-    </div>
-    </div>
+            <div class="navbar-nav ml-auto" id="cart">
+                <a class="nav-item nav-link" id="btnCarrito" href="/carrito"><img src="{% static 'assets/carrito.png' %}" id="carrito-icono"></a>
+                <span id="itemCount"></span>
+            </div>
+        </div>
 </nav>
 

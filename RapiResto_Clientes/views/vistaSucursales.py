@@ -17,7 +17,9 @@ class VistaSucursales(View):
                 request.session.flush()
                 mesa = Mesa.objects.get(numero=form.cleaned_data['mesa'], sucursal=form.cleaned_data['sucursal'])
                 request.session['mesa'] = mesa.id
+                request.session['sucursal'] = mesa.sucursal.numero
                 request.session['alimentos'] = {}
+                request.session['items'] = 0
                 return HttpResponseRedirect('/cartas/' + str(mesa.sucursal.numero))
 
         sucursales = Sucursal.objects.all()
@@ -29,7 +31,6 @@ class VistaSucursales(View):
 
     def getMesas(request):
 
-        print('hola')
         dato_sucursal = request.GET['suc']
         mesas = []
         resultado = []

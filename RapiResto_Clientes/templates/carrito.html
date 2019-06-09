@@ -8,8 +8,9 @@
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     {% endblock css_styles %}
     {% block content %}
+        <div id="container-return"><a href="/cartas/{{carta}}"><span class="oi oi-chevron-left"></span></a></div>
         <div class="table-responsive" id="tableContainer">
-            <table id="table" class="table table-striped table-bordered" style="max-width:100%">
+            <table id="table" class="table table-striped table-bordered border-warning" style="max-width:100%">
                 <thead>
                     <tr>
                         <th>Producto</th>
@@ -36,11 +37,13 @@
                 </tbody>
             </table>
             <br>
+        </div><br>
+        <div id="confirm-container">
             <form action="/confirmar" method="post">
                 {% csrf_token %}
-                 <p><b>Total: ${{total}}</b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button class="btn btn-warning btn-flat" type="submit">Confirmar pedido</button></p>
+                    <p><b>Total: ${{total}}</b>&nbsp&nbsp&nbsp&nbsp&nbsp<button class="btn btn-warning btn-flat" type="submit">Confirmar pedido</button></p>
             </form>
-     
+        </div>
     {% endblock content %}
     {% block app_javascript %}
         <script src="//code.jquery.com/jquery-3.3.1.js"></script>

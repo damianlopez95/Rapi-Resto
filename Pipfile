@@ -12,6 +12,7 @@ django-extensions = "*"
 psycopg2 = "*"
 pillow = "*"
 django-crispy-forms = "*"
+django-image-optimizer = "*"
 
 [requires]
 python_version = "3.7"

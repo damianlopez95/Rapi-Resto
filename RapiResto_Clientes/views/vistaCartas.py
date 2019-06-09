@@ -17,6 +17,7 @@ class VistaCarta(View) :
                     'alimentoID' : form.cleaned_data['alimento'],
                     'cantidad' : form.cleaned_data['cantidad']
                 }
+                request.session['items'] = request.session['items'] + contenido['cantidad']
                 if  contenido['alimentoID'] in request.session['alimentos']:
                         cant = request.session['alimentos'][contenido['alimentoID']]
                         request.session['alimentos'][contenido['alimentoID']] = contenido['cantidad'] + cant
@@ -25,9 +26,11 @@ class VistaCarta(View) :
                 alimentos = request.session['alimentos']
                 request.session.modified = True 
 
+        carta = request.session['sucursal']
         alimentosCarta = AlimentoCarta.objects.filter(carta = pkcarta)
         return render(request, "carta.html", {
             "alimentosCarta" : alimentosCarta,
+            "carta": carta,
             "form" : form
         })
 

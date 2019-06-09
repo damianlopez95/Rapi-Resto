@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import View
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
+import json as simplejson
 
 from RapiResto_Clientes.forms import AlimentoIDForm
 from RapiResto_Responsables.models import Alimento, AlimentoPedido, Pedido, Mesa
@@ -11,6 +12,7 @@ class VistaCarrito(View):
 
         form = AlimentoIDForm()
         alimentos = request.session['alimentos']
+        carta = request.session['sucursal']
         lista = {}
         total = 0
         for alimentoID, cantidad in alimentos.items():
@@ -22,7 +24,8 @@ class VistaCarrito(View):
         return render(request, "carrito.html", {
             'form'  : form,
             'lista' : lista,
-            'total' : total
+            'total' : total,
+            "carta": carta
         })
 
     def delete(request):
@@ -31,8 +34,9 @@ class VistaCarrito(View):
             form = AlimentoIDForm(request.POST)
             if form.is_valid():
                 id = form.cleaned_data['alimento']
+                request.session['items'] = request.session['items'] - request.session['alimentos'][str(id)]
                 request.session['alimentos'].pop(str(id),None)
-                request.session.modified = True 
+                request.session.modified = True
                 return HttpResponseRedirect('/carrito')
 
     def confPedido(request):
@@ -55,4 +59,9 @@ class VistaCarrito(View):
                 # messages.info(request, 'Gracias por su compra. En minutos llegará su pedido..')
                 #Se notifica al encargado del pedido
             return HttpResponseRedirect('/sucursales')
+
+    def getItems(request):
+
+        resultado = ({'items':request.session['items']})
+        return HttpResponse(simplejson.dumps(resultado), content_type='application/json')
 
