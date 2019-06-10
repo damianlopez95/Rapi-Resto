@@ -22,7 +22,6 @@ class VistaLogin(View) :
 
     def logoutUser(request):
 
-        if request.method == 'POST':
-            logout(request)
-            return redirect('/')
+        logout(request)
+        return redirect('/')
 

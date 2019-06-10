@@ -1,2 +1,72 @@
 {% extends 'base_02.html' %}
 
+{% block title %}
+    <title>Carrito</title>
+{% endblock title %}
+{% block description %}
+    <h1>Lista de Cartas</h1>
+{% endblock description %}
+{% block css_styles %}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+{% endblock css_styles %}
+{% block content %}
+    <div class="table-responsive" id="tableContainer">
+        <table id="table" class="table table-striped table-bordered border-warning" style="max-width:100%">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Sucursal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for carta in cartas %}
+                    <tr>
+                        <form method="post">
+                            {% csrf_token %}
+                            <input id="carta" type="hidden" name="carta" value={{carta.id}}><br>
+                            <td><a href="/listacarta/{{carta.id}}">{{carta.nombre}}</a></td>
+                            <td>{{carta.sucursal.direccion}}&nbsp | &nbsp{{carta.sucursal.localidad}}</td>
+                            <td>
+                                {% ifequal request.user.usuario.sucursal.numero carta.sucursal.numero %}
+                                    {% if permiso %}
+                                        <button class="btn btn-primary btn-flat" name='editar' type="submit">Editar</button>
+                                        <button class="btn btn-danger btn-flat" name='eliminar' type="submit">Eliminar</button>
+                                    {% else %}
+                                        <button class="btn btn-primary btn-flat" type="submit" disabled>Editar</button>
+                                        <button class="btn btn-danger btn-flat" type="submit" disabled>Eliminar</button>
+                                    {% endif %}
+                                {% else %}
+                                    <button class="btn btn-primary btn-flat" type="submit" disabled>Editar</button>
+                                    <button class="btn btn-danger btn-flat" type="submit" disabled>Eliminar</button>
+                                {% endifequal %}
+                            </td>
+                    </form>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+    </div><br>
+    <div id="confirm-container">
+        <form action="/">
+            {% if permiso %}
+                <button class="btn btn-warning btn-flat" type="submit">Añadir carta</button>
+            {% else %}
+                <button class="btn btn-warning btn-flat" type="submit" disabled>Añadir carta</button>
+            {% endif %} 
+        </form>
+    </div>
+{% endblock content %}
+{% block app_javascript %}
+    <script src="//code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('table').DataTable();
+        } );
+    </script>
+{% endblock app_javascript %}
+

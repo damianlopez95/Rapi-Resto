@@ -27,16 +27,16 @@
                                             <p class="card-text">{{alimentoCarta.alimento.descripcion}}</p>
                                         </li>
                                         <li class="list-group-item">
-                                            <h5 class="card-title">Recomendaciones</h5>
+                                            <h6 class="card-title">Recomendaciones</h6>
                                             {% for recomendacion in alimentoCarta.alimento.recomendaciones.all %}
                                                 <p class="card-text">{{recomendacion.nombre}}</p>
                                             {% endfor %}
                                         </li>
                                         <li class="list-group-item">
-                                            <h5 class="card-title">${{alimentoCarta.alimento.precio}}</h5>
+                                            <h5 class="card-title"  style="padding-top:8px;">${{alimentoCarta.alimento.precio}}</h5>
                                         </li>
                                         {% if alimentoCarta.stock == 0 %}
-                                            <p class="card-text">No disponible</p>
+                                            <p class="card-text" style="padding-top:16px; color:red;"><b>No disponible</b></p>
                                         {% else %}
                                             <li class="list-group-item">
                                                 <p class="card-text">Disponibilidad: {{alimentoCarta.stock}}</p>

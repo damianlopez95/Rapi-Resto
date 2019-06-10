@@ -14,5 +14,3 @@ class Carta(models.Model):
 
     def __str__(self):
         return str((self.nombre) + ' Suc: ' + str(self.sucursal.numero))
-
- 
