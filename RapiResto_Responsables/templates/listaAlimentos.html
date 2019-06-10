@@ -4,7 +4,7 @@
     <title>Carrito</title>
 {% endblock title %}
 {% block description %}
-    <h1>Lista de Cartas</h1>
+    <h1>Lista de alimentos</h1>
 {% endblock description %}
 {% block css_styles %}
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
@@ -16,31 +16,28 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Sucursal</th>
+                    <th>Precio</th>
+                    <th>Categoría</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                {% for carta in cartas %}
+                {% for alimento in alimentos %}
                     <tr>
                         <form method="post">
                             {% csrf_token %}
-                            <input id="carta" type="hidden" name="carta" value={{carta.id}}><br>
-                            <td><a href="/listacarta/{{carta.id}}">{{carta.nombre}}</a></td>
-                            <td>{{carta.sucursal.direccion}}&nbsp | &nbsp{{carta.sucursal.localidad}}</td>
+                            <input id="alimento" type="hidden" name="alimento" value={{alimento.id}}><br>
+                            <td><a href="/veralimento/{{alimento.id}}">{{alimento.nombre}}</a></td>
+                            <td>${{alimento.precio}}</td>
+                            <td>{{alimento.categoria}}</td>
                             <td>
-                                {% ifequal request.user.usuario.sucursal.numero carta.sucursal.numero %}
-                                    {% if permiso %}
-                                        <button class="btn btn-primary btn-flat" name='editar' type="submit">Editar</button>
-                                        <button class="btn btn-danger btn-flat" name='eliminar' type="submit">Eliminar</button>
-                                    {% else %}
-                                        <button class="btn btn-primary btn-flat" type="submit" disabled>Editar</button>
-                                        <button class="btn btn-danger btn-flat" type="submit" disabled>Eliminar</button>
-                                    {% endif %}
+                                {% if permiso %}
+                                    <button class="btn btn-primary btn-flat" name='editar' type="submit">Editar</button>
+                                    <button class="btn btn-danger btn-flat" name='eliminar' type="submit">Eliminar</button>
                                 {% else %}
                                     <button class="btn btn-primary btn-flat" type="submit" disabled>Editar</button>
                                     <button class="btn btn-danger btn-flat" type="submit" disabled>Eliminar</button>
-                                {% endifequal %}
+                                {% endif %}
                             </td>
                     </form>
                     </tr>
@@ -50,11 +47,11 @@
         <br>
     </div><br>
     <div id="confirm-container">
-        <form action="/crearcarta">
+        <form action="/crearalimento">
             {% if permiso %}
-                <button class="btn btn-warning btn-flat" type="submit">Añadir carta</button>
+                <button class="btn btn-warning btn-flat" type="submit">Añadir alimento</button>
             {% else %}
-                <button class="btn btn-warning btn-flat" type="submit" disabled>Añadir carta</button>
+                <button class="btn btn-warning btn-flat" type="submit" disabled>Añadir alimento</button>
             {% endif %} 
         </form>
     </div>

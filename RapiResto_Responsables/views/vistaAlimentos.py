@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.views.generic import View
+from django.http import HttpResponseRedirect
 
-from RapiResto_Responsables.forms import AlimentoForm
+from RapiResto_Responsables.forms import AlimentoForm, AlimentoIDForm
 from RapiResto_Responsables.models import Alimento
 
 class VistaAlimento(View) :
 
-    def alimento_campos(request):
+    def crearAlimento(request):
 
         if request.method == 'POST':
             form = AlimentoForm(request.POST, request.FILES)
@@ -18,3 +19,30 @@ class VistaAlimento(View) :
         "form" : form
      })
 
+    def verAlimento(request, pkalimento):
+
+        alimento = Alimento.objects.get(pk=pkalimento)
+        return render(request,"verAlimento.html", {
+            "alimento" : alimento
+        })
+
+    def obtenerAlimentos(request):
+
+        if request.method == 'POST':
+            form = AlimentoIDForm(request.POST)
+            if form.is_valid():
+                if 'editar' in request.POST:
+                    return HttpResponseRedirect('/editaralimento/' + str(form.cleaned_data['alimento']))
+                elif 'eliminar' in request.POST:
+                    alimento = Alimento.objects.get(pk = form.cleaned_data['carta'])
+                    alimento.delete()
+                    return HttpResponseRedirect("/listacartas")
+
+        form = AlimentoIDForm()
+        permiso = request.user.groups.filter(name='GestorDeAlimentos').exists()
+        alimentos = Alimento.objects.all()
+        return render(request,"listaAlimentos.html", {
+        "form" : form,
+        "alimentos" : alimentos,
+        "permiso" : permiso
+     })

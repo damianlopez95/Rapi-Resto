@@ -1,13 +1,17 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 
-from RapiResto_Responsables.models import Alimento, Mesa, Sucursal, Carta
+from RapiResto_Responsables.models import Alimento, Mesa, Sucursal, Carta, AlimentoCarta
 
 class AlimentoForm(forms.ModelForm):
     
     class Meta:
         model = Alimento
         fields = ("nombre","descripcion","precio","categoria","recomendaciones", "imagen")
+
+class AlimentoIDForm(forms.Form):
+
+    alimento = forms.IntegerField()
 
 class LoginForm(AuthenticationForm):
 
@@ -24,3 +28,12 @@ class CartaForm(forms.ModelForm):
         model = Carta
         fields = ("nombre","sucursal","imagen")
 
+class AlimentoCartaIDForm(forms.Form):
+
+    alimentocarta = forms.IntegerField()
+
+class AlimentoCartaForm(forms.ModelForm):
+
+    class Meta:
+        model = AlimentoCarta
+        fields = ("alimento","stock","carta")
