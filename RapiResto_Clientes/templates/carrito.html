@@ -41,7 +41,7 @@
         <div id="confirm-container">
             <form action="/confirmar" method="post">
                 {% csrf_token %}
-                    <p><b>Total: ${{total}}</b>&nbsp&nbsp&nbsp&nbsp&nbsp<button class="btn btn-warning btn-flat" type="submit">Confirmar pedido</button></p>
+                    <p><b>Total: ${{total}}</b>&nbsp&nbsp&nbsp&nbsp&nbsp<button class="btn btn-warning btn-flat" id='confirmar' type="submit">Confirmar pedido</button></p>
             </form>
         </div>
     {% endblock content %}
@@ -53,6 +53,11 @@
             $(document).ready( function () {
                 $('table').DataTable();
             } );
+        </script>
+        <script>
+            $(document).on('click', '#confirmar', function(){
+                return confirm('Seguro que deseas continuar?');
+            })
         </script>
     {% endblock app_javascript %}
 

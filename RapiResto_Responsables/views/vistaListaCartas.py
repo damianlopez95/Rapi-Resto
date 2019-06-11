@@ -3,7 +3,7 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect
 
 from RapiResto_Responsables.forms import CartaIDForm, CartaForm, AlimentoCartaIDForm, AlimentoCartaForm
-from RapiResto_Responsables.models import Carta, AlimentoCarta
+from RapiResto_Responsables.models import Carta, AlimentoCarta, Alimento
 
 class VistaListaCarta(View) :
 
@@ -30,8 +30,29 @@ class VistaListaCarta(View) :
                 return HttpResponseRedirect('/listacarta/' + str(pkcarta))
 
         form = AlimentoCartaForm()
+        carta = Carta.objects.get(pk = pkcarta)
+        alimentos = Alimento.objects.all()
         return render(request,"creacionAlimentoCarta.html", {
-        "form" : form
+        "form" : form,
+        "carta" : carta,
+        "alimentos" : alimentos
+        })
+
+    def editarAlimentoCarta(request, pkalimentocarta):
+
+        alimentoCarta = AlimentoCarta.objects.get(pk=pkalimentocarta)
+        if request.method == 'POST':
+            form = AlimentoCartaForm(request.POST, request.FILES, instance=alimentoCarta)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect('/listacarta/' + str(alimentoCarta.carta.id))
+
+        form = AlimentoCartaForm()
+        carta = Carta.objects.get(pk = alimentoCarta.carta.id)
+        return render(request,"editaralimentocarta.html", {
+        "form" : form,
+        "carta": carta,
+        "alimentoCarta" : alimentoCarta
         })
 
     def editarCarta(request, pkcarta):
@@ -47,20 +68,6 @@ class VistaListaCarta(View) :
         return render(request,"editarcarta.html", {
         "form" : form,
         "carta" : carta
-        })
-
-    def editarAlimentoCarta(request, pkalimentocarta):
-
-        alimentoCarta = AlimentoCarta.objects.get(pk=pkalimentocarta)
-        if request.method == 'POST':
-            form = AlimentoCartaForm(request.POST, request.FILES, instance=alimentoCarta)
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect('/listacarta/' + str(alimentoCarta.carta.id))
-
-        form = AlimentoCartaForm(instance=alimentoCarta)
-        return render(request,"editaralimentocarta.html", {
-        "form" : form
         })
 
     def obtenerCartas(request):
@@ -98,11 +105,13 @@ class VistaListaCarta(View) :
                     return HttpResponseRedirect("/listacarta/" + str(pk))
 
         form = AlimentoCartaIDForm()
+        carta = Carta.objects.get(pk = pkcarta)
         alimentosCarta = AlimentoCarta.objects.filter(carta = pkcarta)
         permisoGC = request.user.groups.filter(name='GestorDeCartas').exists()
         permisoR = request.user.groups.filter(name='Repositor').exists()
         return render(request, "listaCarta.html", {
             "form" : form,
+            "carta" : carta,
             "alimentosCarta" : alimentosCarta,
             "permisoGC" : permisoGC,
             "permisoR"  : permisoR

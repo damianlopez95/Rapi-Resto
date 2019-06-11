@@ -18,10 +18,13 @@ class VistaLogin(View) :
         else:
             form = LoginForm()
 
-        return render(request,"login.html", {'form' : form})
+        if request.user.is_authenticated:
+            return redirect('bienvenida')
+        else:
+            return render(request,"login.html", {'form' : form})
 
     def logoutUser(request):
 
         logout(request)
-        return redirect('/')
+        return redirect('/loginuser')
 

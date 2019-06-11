@@ -1,18 +1,53 @@
 {% extends 'base_02.html' %}
 
-{% load crispy_forms_tags %}
-
 {% block title %}
     <title>AlimentoCarta</title>
 {% endblock title %}
 {% block description %}
     <h1>Cargar alimento en carta</h1>
 {% endblock description %}
+{% block navigation %}
+    <li><a href="/listacartas">Cartas</a></li>
+    <li><a href="/listacarta/{{carta.id}}">Carta</a></li>
+    <li class="active">Agregar contenido</li>
+{% endblock navigation %}
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form|crispy}}
-        <button type="submit">Enviar</button>
-    </form>
+    <div class="fluid-container col-md-8" style="background:white;">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row" style="padding:10px;">
+                <div id="div_id_alimento" class="form-group col-md-8">
+                    <label for="id_alimento" class="col-form-label  requiredField">Alimento<span class="asteriskField">*</span></label>
+                    <div class="">
+                        <select name="alimento" class="select form-control" required id="id_alimento">
+                            <option value="">---------</option>
+                            {% for alimento in alimentos %}
+                                <option value="{{alimento.id}}">{{alimento.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div id="div_id_stock" class="form-group col-md-4">
+                    <label for="id_stock" class="col-form-label  requiredField">Stock<span class="asteriskField">*</span></label>
+                    <div class="">
+                        <input type="number" name="stock" min="0" class="numberinput form-control" required id="id_stock">
+                    </div> 
+                </div> 
+            </div>
+            <div class="form-row" style="padding:10px;">
+                <div id="div_id_carta" class="form-group col-md-6">
+                    <label for="id_carta" class="col-form-label  requiredField">Carta<span class="asteriskField">*</span></label>
+                    <div class="">
+                        <select name="carta" class="select form-control" required id="id_carta">
+                            <option value="{{carta.id}}">{{carta}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row" style="padding:10px;">
+                <button type="submit" class="btn btn-primary" style="width:100px;">Enviar</button>
+            </div>
+        </form>
+    </div>
 {% endblock content %}
 
