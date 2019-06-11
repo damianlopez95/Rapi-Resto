@@ -14,6 +14,7 @@ urlpatterns = [
     path('crearcarta', VistaListaCarta.crearCarta, name = "crearcarta"),
     path('crearalimentocarta/<int:pkcarta>', VistaListaCarta.crearAlimentoCarta, name = "crearalimentocarta"),
     path('veralimento/<int:pkalimento>', VistaAlimento.verAlimento, name = "veralimento"),
+    path('editaralimento/<int:pkalimento>', VistaAlimento.editarAlimento, name = "editaralimento"),
     path('listaalimentos', VistaAlimento.obtenerAlimentos, name = "listaalimentos"),
     path('listapedidos', VistaPedido.obtenerPedidos, name = "listapedidos"),
     path('verpedido/<int:pkpedido>', VistaPedido.verPedido, name = "verpedido"),

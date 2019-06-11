@@ -17,7 +17,7 @@ class VistaListaCarta(View) :
 
         form = CartaForm()
         print(form)
-        return render(request,"carta.html", {
+        return render(request,"creacionCarta.html", {
         "form" : form
         })
 
@@ -30,7 +30,7 @@ class VistaListaCarta(View) :
                 return HttpResponseRedirect('/listacarta/' + str(pkcarta))
 
         form = AlimentoCartaForm()
-        return render(request,"alimentocarta.html", {
+        return render(request,"creacionAlimentoCarta.html", {
         "form" : form
         })
 
@@ -43,10 +43,10 @@ class VistaListaCarta(View) :
                 form.save()
                 return HttpResponseRedirect('/listacartas')
 
-        carta = Carta.objects.get(pk=pkcarta)
-        form = CartaForm(instance=carta)
+        form = CartaForm()
         return render(request,"editarcarta.html", {
-        "form" : form
+        "form" : form,
+        "carta" : carta
         })
 
     def editarAlimentoCarta(request, pkalimentocarta):

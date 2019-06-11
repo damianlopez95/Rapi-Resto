@@ -6,6 +6,9 @@
 {% block description %}
     <h1>Lista de alimentos</h1>
 {% endblock description %}
+{% block navigation %}
+    <li class="active">Alimentos</li>
+{% endblock navigation %}
 {% block css_styles %}
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
@@ -26,17 +29,17 @@
                     <tr>
                         <form method="post">
                             {% csrf_token %}
-                            <input id="alimento" type="hidden" name="alimento" value={{alimento.id}}><br>
+                            <input id="alimento" type="hidden" name="alimento" value={{alimento.id}}>
                             <td><a href="/veralimento/{{alimento.id}}">{{alimento.nombre}}</a></td>
                             <td>${{alimento.precio}}</td>
                             <td>{{alimento.categoria}}</td>
                             <td>
                                 {% if permiso %}
-                                    <button class="btn btn-primary btn-flat" name='editar' type="submit">Editar</button>
-                                    <button class="btn btn-danger btn-flat" name='eliminar' type="submit">Eliminar</button>
+                                    <button class="btn btn-primary" name='editar' type="submit">Editar</button>
+                                    <button class="btn btn-danger" name='eliminar' id='eliminar' type="submit">Eliminar</button>
                                 {% else %}
-                                    <button class="btn btn-primary btn-flat" type="submit" disabled>Editar</button>
-                                    <button class="btn btn-danger btn-flat" type="submit" disabled>Eliminar</button>
+                                    <button class="btn btn-primary" type="submit" disabled>Editar</button>
+                                    <button class="btn btn-danger" type="submit" disabled>Eliminar</button>
                                 {% endif %}
                             </td>
                     </form>
@@ -49,9 +52,9 @@
     <div id="confirm-container">
         <form action="/crearalimento">
             {% if permiso %}
-                <button class="btn btn-warning btn-flat" type="submit">Añadir alimento</button>
+                <button class="btn btn-warning" type="submit">Añadir alimento</button>
             {% else %}
-                <button class="btn btn-warning btn-flat" type="submit" disabled>Añadir alimento</button>
+                <button class="btn btn-warning" type="submit" disabled>Añadir alimento</button>
             {% endif %} 
         </form>
     </div>
@@ -64,6 +67,11 @@
         $(document).ready( function () {
             $('table').DataTable();
         } );
+    </script>
+    <script>
+        $(document).on('click', '#eliminar', function(){
+            return confirm('Seguro que deseas continuar?');
+        })
     </script>
 {% endblock app_javascript %}
 

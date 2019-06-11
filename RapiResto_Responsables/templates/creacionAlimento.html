@@ -1,0 +1,78 @@
+{% extends 'base_02.html' %}
+
+{% block title %}
+    <title>Alimentos</title>
+{% endblock title %}
+{% block description %}
+    <h1>Agregar nuevo alimento</h1>
+{% endblock description %}
+{% block navigation %}
+    <li><a href="/listaalimentos">Alimentos</a></li>
+    <li class="active">Nuevo alimento</li>
+{% endblock navigation %}
+{% block content %}
+    <div class="fluid-container col-md-6" style="background:white;">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row" style="padding:10px;">
+                <div id="div_id_nombre" class="form-group col-md-8">
+                    <label for="id_nombre" class="col-form-label  requiredField">Nombre<span class="asteriskField">*</span></label>
+                    <div class="">
+                        <input type="text" name="nombre" maxlength="80" class="textinput textInput form-control" required id="id_nombre">
+                    </div>
+                </div>
+                 <div id="div_id_precio" class="form-group col-md-4">
+                    <label for="id_precio" class="col-form-label  requiredField">Precio<span class="asteriskField">*</span></label>
+                    <div class="">
+                        <input type="number" name="precio" step="0.01" class="numberinput form-control" required id="id_precio">
+                    </div>
+                </div> 
+            </div> 
+            <div class="form-row" style="padding:10px;">
+                <div id="div_id_categoria" class="form-group col-md-8">
+                    <label for="id_categoria" class="col-form-label  requiredField">Categoria<span class="asteriskField">*</span></label>
+                    <div class="">
+                        <select name="categoria" class="select form-control" required id="id_categoria">
+                            <option value="" selected>---------</option>
+                            {% for categoria in categorias %}
+                                <option value="{{categoria.id}}">{{categoria.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row" style="padding:10px;">
+                <div id="div_id_recomendaciones" class="form-group col-md-8">
+                    <label for="id_recomendaciones" class="col-form-label ">Recomendaciones</label>
+                    <div class="">
+                        <select name="recomendaciones" class="selectmultiple form-control" id="id_recomendaciones" multiple>
+                            {% for alimento in alimentos %}
+                                <option value="{{alimento.id}}">{{alimento.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row" style="padding:10px;">
+                <div id="div_id_descripcion" class="form-group col-md-8">
+                    <label for="id_descripcion" class="col-form-label ">Descripcion</label>
+                    <div class="">
+                        <textarea name="descripcion" cols="40" rows="4" class="textarea form-control" id="id_descripcion"></textarea> 
+                    </div>
+                </div>
+             </div>
+            <div class="form-row" style="padding:10px;">
+                <div id="div_id_imagen" class="form-group">
+                    <label for="id_imagen" class="col-form-label ">Imagen</label>
+                    <div class="">
+                        <input type="file" name="imagen" accept="image/*" class="clearablefileinput" id="id_imagen">
+                    </div>
+                </div>
+            </div>
+            <div class="form-row" style="padding:10px;">
+                <button type="submit" class="btn btn-primary" style="width:100px;">Enviar</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+

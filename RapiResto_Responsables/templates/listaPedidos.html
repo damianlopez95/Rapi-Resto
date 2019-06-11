@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 {% endblock css_styles %}
+{% block navigation %}
+    <li class="active">Pedidos</li>
+{% endblock navigation %}
 {% block content %}
     <div class="table-responsive" id="tableContainer">
         <table id="table" class="table table-striped table-bordered border-warning" style="max-width:100%">
@@ -33,7 +36,7 @@
                         <td>${{pedido.total}}</td>
                         <td>
                             <form action="/verpedido/{{pedido.id}}">
-                                <button class="btn btn-primary btn-flat" type="submit">Ver</button>
+                                <button class="btn btn-primary" type="submit" style="width:60px;">Ver</button>
                             </form>
                         </td>
                     </tr>

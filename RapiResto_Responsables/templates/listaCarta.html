@@ -4,14 +4,18 @@
     <title>Carrito</title>
 {% endblock title %}
 {% block description %}
-    <h1>Lista de alimentos en carta</h1>
+    <h1>Contenido en carta</h1>
 {% endblock description %}
 {% block css_styles %}
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 {% endblock css_styles %}
+{% block navigation %}
+    <li><a href="/listacartas">Cartas</a></li>
+    <li class="active">Carta</li>
+{% endblock navigation %}
 {% block content %}
-    <div class="table-responsive" id="tableContainer">
+    <div class="table-responsive" id="tableContainers">
         <table id="table" class="table table-striped table-bordered border-warning" style="max-width:100%">
             <thead>
                 <tr>
@@ -27,7 +31,7 @@
                     <tr>
                         <form method="post">
                             {% csrf_token %}
-                            <input id="alimentocarta" type="hidden" name="alimentocarta" value={{alimentoCarta.id}}><br>
+                            <input id="alimentocarta" type="hidden" name="alimentocarta" value={{alimentoCarta.id}}>
                             <td><a href="/veralimento/{{alimentoCarta.alimento.id}}">{{alimentoCarta.alimento.nombre}}</a></td>
                             {% if alimentoCarta.stock == 0 %}
                                 <td style="color:red;"><b>{{alimentoCarta.stock}}</b></td>
@@ -39,20 +43,20 @@
                             <td>
                                 {% ifequal request.user.usuario.sucursal.numero alimentoCarta.carta.sucursal.numero %}
                                     {% if permisoR %}
-                                        <button class="btn btn-primary btn-flat" name='editar' type="submit">Editar</button>
-                                        <button class="btn btn-danger btn-flat" type="submit" disabled>Eliminar</button>
+                                        <button class="btn btn-primary" name='editar' type="submit">Editar</button>
+                                        <button class="btn btn-danger" type="submit" disabled>Eliminar</button>
                                     {% else %}
                                         {% if permisoGC %}
-                                            <button class="btn btn-primary btn-flat" name='editar' type="submit">Editar</button>
-                                            <button class="btn btn-danger btn-flat" name='eliminar' type="submit">Eliminar</button>
+                                            <button class="btn btn-primary" name='editar' type="submit">Editar</button>
+                                            <button class="btn btn-danger" name='eliminar' id="eliminar" type="submit">Eliminar</button>
                                         {% else %}
-                                            <button class="btn btn-primary btn-flat" type="submit" disabled>Editar</button>
-                                            <button class="btn btn-danger btn-flat" type="submit" disabled>Eliminar</button>
+                                            <button class="btn btn-primary" type="submit" disabled>Editar</button>
+                                            <button class="btn btn-danger" type="submit" disabled>Eliminar</button>
                                         {% endif %}
                                     {% endif %}
                                 {% else %}
-                                    <button class="btn btn-primary btn-flat" type="submit" disabled>Editar</button>
-                                    <button class="btn btn-danger btn-flat" type="submit" disabled>Eliminar</button>
+                                    <button class="btn btn-primary" type="submit" disabled>Editar</button>
+                                    <button class="btn btn-danger" type="submit" disabled>Eliminar</button>
                                 {% endifequal %}
                             </td>
                     </form>
@@ -65,9 +69,9 @@
     <div id="confirm-container">
         <form action="/crearalimentocarta/{{alimentosCarta.0.carta.id}}">
             {% if permisoGC %}
-                <button class="btn btn-warning btn-flat" type="submit">Añadir producto</button>
+                <button class="btn btn-warning" type="submit">Añadir producto</button>
             {% else %}
-                <button class="btn btn-warning btn-flat" type="submit" disabled>Añadir producto</button>
+                <button class="btn btn-warning" type="submit" disabled>Añadir producto</button>
             {% endif %} 
         </form>
     </div>
@@ -80,6 +84,11 @@
         $(document).ready( function () {
             $('table').DataTable();
         } );
+    </script>
+    <script>
+        $(document).on('click', '#eliminar', function(){
+            return confirm('Seguro que deseas continuar?');
+        })
     </script>
 {% endblock app_javascript %}
 
