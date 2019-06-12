@@ -15,6 +15,7 @@ django-crispy-forms = "*"
 django-image-optimizer = "*"
 channels = "*"
 pypiwin32 = "*"
+django-notify-x = "*"
 
 [requires]
 python_version = "3.7"

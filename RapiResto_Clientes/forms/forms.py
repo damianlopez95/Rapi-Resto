@@ -15,6 +15,7 @@ class MesaForm(forms.Form):
 
 class PedidoAlimentoForm(forms.Form):
 
+    alimentoCarta = forms.CharField()
     alimento = forms.CharField()
     cantidad = forms.IntegerField()
 

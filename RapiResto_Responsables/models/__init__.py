@@ -7,6 +7,6 @@ from .carta import Carta
 from .sucursal import Sucursal
 from .pedido import Pedido
 from .mesa import Mesa
-from .opinion import Opinion
+from .notificacion import Notificacion
 from .usuario import Usuario
 

@@ -16,7 +16,7 @@
                                 {% if alimentoCarta.alimento.imagen != None %}
                                     <img class="img-fluid" id='imagen-carta' src="/static/assets/{{alimentoCarta.alimento.imagen}}" class="card-img-top">
                                 {% endif %}
-                                <form method="post">
+                                <form method="post" action="/agregaritem">
                                 {% csrf_token %}
                                 <div class="card-header">
                                     {{alimentoCarta.alimento.nombre}}
@@ -49,6 +49,7 @@
                                             {% endif %}
                                         </li>
                                         <input id="alimento" type="hidden" name="alimento" value={{alimentoCarta.alimento.id}}><br>
+                                        <input id="alimentoCarta" type="hidden" name="alimentoCarta" value={{alimentoCarta.id}}><br>
                                         <button type="submit" class="btn btn-warning btn-block btn-flat">Añadir</button>
                                     {% endif %}
                                 </div>
