@@ -8,7 +8,7 @@ from RapiResto_Responsables.models import Sucursal, Pedido, Mesa
 
 class VistaSucursales(View):
 
-    def getSucursales(request):
+    def obtenerSucursales(request):
     
         form = MesaForm()
         if request.method == 'POST':
@@ -20,7 +20,7 @@ class VistaSucursales(View):
                 request.session['sucursal'] = mesa.sucursal.numero
                 request.session['alimentos'] = {}
                 request.session['items'] = 0
-                return HttpResponseRedirect('/cartas/' + str(mesa.sucursal.numero))
+                return HttpResponseRedirect(str(mesa.sucursal.numero) + '/cartas')
 
         sucursales = Sucursal.objects.all()
         return render(request, 'sucursales.html', {
@@ -28,11 +28,9 @@ class VistaSucursales(View):
             "form":form
         })
 
-
-    def getMesas(request):
+    def obtenerMesas(request):
 
         dato_sucursal = request.GET['suc']
-        mesas = []
         resultado = []
         respuesta = int(dato_sucursal.split()[0])
         sucursal = Sucursal.objects.get(numero=respuesta)

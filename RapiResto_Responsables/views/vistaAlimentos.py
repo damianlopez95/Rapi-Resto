@@ -2,12 +2,16 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.db.models import Q
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 
 from RapiResto_Responsables.forms import AlimentoForm, AlimentoIDForm
 from RapiResto_Responsables.models import Alimento, Categoria
 
 class VistaAlimento(View) :
 
+    @login_required
+    @permission_required('RapiResto_Responsables.add_alimento')
     def crearAlimento(request):
 
         if request.method == 'POST':
@@ -25,6 +29,8 @@ class VistaAlimento(View) :
         "categorias" : categorias
      })
 
+    @login_required
+    @permission_required('RapiResto_Responsables.change_alimento')
     def editarAlimento(request, pkalimento):
 
         alimento = Alimento.objects.get(pk = pkalimento)
@@ -44,6 +50,7 @@ class VistaAlimento(View) :
         "categorias" : categorias
      })
 
+    @login_required
     def verAlimento(request, pkalimento):
 
         alimento = Alimento.objects.get(pk=pkalimento)
@@ -51,6 +58,7 @@ class VistaAlimento(View) :
             "alimento" : alimento
         })
 
+    @login_required
     def obtenerAlimentos(request):
 
         if request.method == 'POST':
@@ -64,7 +72,7 @@ class VistaAlimento(View) :
                     return HttpResponseRedirect("/listaalimentos")
 
         form = AlimentoIDForm()
-        permiso = request.user.groups.filter(name='GestorDeAlimentos').exists()
+        permiso = request.user.groups.filter(name='GestorDeAlimentos').exists() | request.user.is_superuser
         alimentos = Alimento.objects.all()
         return render(request,"listaAlimentos.html", {
         "form" : form,

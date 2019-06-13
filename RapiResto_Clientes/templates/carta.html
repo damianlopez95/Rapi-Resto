@@ -5,7 +5,7 @@
     {% endblock title %}
    
     {% block content %}
-        <div id="container-return"><a href="/cartas/{{carta}}"><span class="oi oi-chevron-left"></span></a></div>
+        <div id="container-return"><a href="/{{sucursal}}/cartas"><span class="oi oi-chevron-left"></span></a></div>
         <div class="fluid-container" id="vistaCarta">
             <div class="container-fluid" id='container-alimentos'>
                 <h1>{{ alimentosCarta.0.carta.nombre }}</h1> <br>
@@ -67,7 +67,7 @@
             $(document).ready(function(){
                 console.log('result');
                 $.ajax({
-                    url: '/getItems',
+                    url: '/obtenerItems',
                     type: 'get',
                     data: '',
                     success: function(result){

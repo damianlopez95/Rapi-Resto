@@ -55,7 +55,7 @@
                     var nombre_suc   = optionSelected.text();
                     dataS = {'suc' : nombre_suc };
                     $.ajax({
-                    url: 'getMesas',
+                    url: 'obtenerMesas',
                     type: 'get',
                     data: dataS,
                     success: function(result){

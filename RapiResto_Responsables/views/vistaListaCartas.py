@@ -1,12 +1,16 @@
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 
 from RapiResto_Responsables.forms import CartaIDForm, CartaForm, AlimentoCartaIDForm, AlimentoCartaForm
 from RapiResto_Responsables.models import Carta, AlimentoCarta, Alimento
 
 class VistaListaCarta(View) :
 
+    @login_required
+    @permission_required('RapiResto_Responsables.add_carta')
     def crearCarta(request):
 
         if request.method == 'POST':
@@ -15,12 +19,15 @@ class VistaListaCarta(View) :
                 form.save()
                 return HttpResponseRedirect('/listacartas')
 
+        print(request.user.get_all_permissions())
         form = CartaForm()
         print(form)
         return render(request,"creacionCarta.html", {
         "form" : form
         })
 
+    @login_required
+    @permission_required('RapiResto_Responsables.add_alimentocarta')
     def crearAlimentoCarta(request, pkcarta):
 
         if request.method == 'POST':
@@ -38,6 +45,8 @@ class VistaListaCarta(View) :
         "alimentos" : alimentos
         })
 
+    @login_required
+    @permission_required('RapiResto_Responsables.change_alimentocarta')
     def editarAlimentoCarta(request, pkalimentocarta):
 
         alimentoCarta = AlimentoCarta.objects.get(pk=pkalimentocarta)
@@ -55,6 +64,8 @@ class VistaListaCarta(View) :
         "alimentoCarta" : alimentoCarta
         })
 
+    @login_required
+    @permission_required('RapiResto_Responsables.change_carta')
     def editarCarta(request, pkcarta):
 
         carta = Carta.objects.get(pk=pkcarta)
@@ -70,6 +81,7 @@ class VistaListaCarta(View) :
         "carta" : carta
         })
 
+    @login_required
     def obtenerCartas(request):
 
         if request.method == 'POST':
@@ -83,7 +95,7 @@ class VistaListaCarta(View) :
                     return HttpResponseRedirect("/listacartas")
 
         form = CartaIDForm()
-        permiso = request.user.groups.filter(name='GestorDeCartas').exists()
+        permiso = request.user.groups.filter(name='GestorDeCartas').exists() | request.user.is_superuser
         cartas = Carta.objects.all()
         return render(request,"listaCartas.html", {
         "form" : form,
@@ -91,6 +103,7 @@ class VistaListaCarta(View) :
         "permiso" : permiso
      })
 
+    @login_required
     def obtenerCarta(request, pkcarta):
         
         if request.method == 'POST':
@@ -107,7 +120,7 @@ class VistaListaCarta(View) :
         form = AlimentoCartaIDForm()
         carta = Carta.objects.get(pk = pkcarta)
         alimentosCarta = AlimentoCarta.objects.filter(carta = pkcarta)
-        permisoGC = request.user.groups.filter(name='GestorDeCartas').exists()
+        permisoGC = request.user.groups.filter(name='GestorDeCartas').exists() | request.user.is_superuser
         permisoR = request.user.groups.filter(name='Repositor').exists()
         return render(request, "listaCarta.html", {
             "form" : form,
