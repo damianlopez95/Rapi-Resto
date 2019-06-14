@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import VistaAlimento, VistaLogin, VistaBienvenida, VistaListaCarta, VistaPedido
+from .views import VistaAlimento, VistaLogin, VistaBienvenida, VistaListaCarta, VistaPedido, VistaAlimentoCarta
 
 urlpatterns = [
     #URLs de login y logout
@@ -13,13 +13,13 @@ urlpatterns = [
     #URLs de creación de elementos
         path('crearalimento', VistaAlimento.crearAlimento, name = "crearalimento"),
         path('crearcarta', VistaListaCarta.crearCarta, name = "crearcarta"),
-        path('crearalimentocarta/<int:pkcarta>', VistaListaCarta.crearAlimentoCarta, name = "crearalimentocarta"),
+        path('<int:pkcarta>/crearalimentocarta', VistaAlimentoCarta.crearAlimentoCarta, name = "crearalimentocarta"),
 
     #URLs de edición de elementos
-        path('editarcarta/<int:pkcarta>', VistaListaCarta.editarCarta, name = "editarcarta"),
-        path('editaralimentocarta/<int:pkalimentocarta>', VistaListaCarta.editarAlimentoCarta, name = "editaralimentocarta"),
         path('editaralimento/<int:pkalimento>', VistaAlimento.editarAlimento, name = "editaralimento"),
-
+        path('editarcarta/<int:pkcarta>', VistaListaCarta.editarCarta, name = "editarcarta"),
+        path('editaralimentocarta/<int:pkalimentocarta>', VistaAlimentoCarta.editarAlimentoCarta, name = "editaralimentocarta"),
+        
     #URLs de petición de listas de elementos
         path('listacartas', VistaListaCarta.obtenerCartas, name = "listacartas"),
         path('listacarta/<int:pkcarta>', VistaListaCarta.obtenerCarta, name = "listacarta"),

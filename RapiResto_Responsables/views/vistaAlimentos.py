@@ -42,6 +42,9 @@ class VistaAlimento(View) :
 
         form = AlimentoForm()
         alimentos = Alimento.objects.filter(~Q(pk = pkalimento))
+        for recomendacion in alimento.recomendaciones.all():
+            if recomendacion in alimentos:
+                alimentos = alimentos.exclude(id=recomendacion.id)
         categorias = Categoria.objects.all()
         return render(request,"editarAlimento.html", {
         "form" : form,

@@ -50,6 +50,9 @@
                     <label for="id_recomendaciones" class="col-form-label ">Recomendaciones</label>
                     <div class="">
                         <select name="recomendaciones" class="selectmultiple form-control" id="id_recomendaciones" multiple>
+                            {% for recomendacion in alimento.recomendaciones.all %}
+                                <option value="{{recomendacion.id}}" selected>{{recomendacion.nombre}}</option>
+                            {% endfor %}
                             {% for alimento in alimentos %}
                                 <option value="{{alimento.id}}">{{alimento.nombre}}</option>
                             {% endfor %}

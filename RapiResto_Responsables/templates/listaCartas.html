@@ -32,20 +32,25 @@
                             <td><a href="/listacarta/{{carta.id}}">{{carta.nombre}}</a></td>
                             <td>{{carta.sucursal.direccion}}&nbsp | &nbsp{{carta.sucursal.localidad}}</td>
                             <td>
-                                {% ifequal request.user.usuario.sucursal.numero carta.sucursal.numero %}
-                                    {% if permiso %}
-                                        <button class="btn btn-primary" name='editar' type="submit" style="width: 80px;">Editar</button>
-                                        <button class="btn btn-danger" name='eliminar' id="eliminar" style="width: 80px;" type="submit">Eliminar</button>
+                                {% if permisos.Superuser %}
+                                    <button class="btn btn-primary" name='editar' type="submit" style="width: 80px;">Editar</button>
+                                    <button class="btn btn-danger" name='eliminar' id="eliminar" style="width: 80px;" type="submit">Eliminar</button>
+                                {% else %}
+                                    {% if permisos.GestorDeCartas %}
+                                        {% ifequal request.user.usuario.sucursal.numero carta.sucursal.numero %}
+                                            <button class="btn btn-primary" name='editar' type="submit" style="width: 80px;">Editar</button>
+                                            <button class="btn btn-danger" name='eliminar' id="eliminar" style="width: 80px;" type="submit">Eliminar</button>
+                                        {% else %}
+                                            <button class="btn btn-primary" type="submit" style="width: 80px;" disabled>Editar</button>
+                                            <button class="btn btn-danger" type="submit" style="width: 80px;" disabled>Eliminar</button>
+                                        {% endifequal %}
                                     {% else %}
                                         <button class="btn btn-primary" type="submit" style="width: 80px;" disabled>Editar</button>
                                         <button class="btn btn-danger" type="submit" style="width: 80px;" disabled>Eliminar</button>
                                     {% endif %}
-                                {% else %}
-                                    <button class="btn btn-primary" type="submit" style="width: 80px;" disabled>Editar</button>
-                                    <button class="btn btn-danger" type="submit" style="width: 80px;" disabled>Eliminar</button>
-                                {% endifequal %}
+                                {% endif %}
                             </td>
-                    </form>
+                        </form>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -54,11 +59,15 @@
     </div><br>
     <div id="confirm-container">
         <form action="/crearcarta">
-            {% if permiso %}
+            {% if permisos.GestorDeCartas %}
                 <button class="btn btn-warning" type="submit">Añadir carta</button>
             {% else %}
-                <button class="btn btn-warning" type="submit" disabled>Añadir carta</button>
-            {% endif %} 
+                {% if permisos.Superuser %}
+                    <button class="btn btn-warning" type="submit">Añadir carta</button>
+                {% else %}
+                    <button class="btn btn-warning" type="submit" disabled>Añadir carta</button>
+                {% endif %}
+            {% endif %}
         </form>
     </div>
 {% endblock content %}
