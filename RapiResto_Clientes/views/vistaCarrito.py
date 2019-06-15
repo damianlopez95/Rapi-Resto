@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
 import json as simplejson
 
 from RapiResto_Clientes.forms import AlimentoIDForm, PedidoAlimentoForm
@@ -9,6 +10,10 @@ from RapiResto_Responsables.models import Alimento, AlimentoPedido, Pedido, Mesa
 class VistaCarrito(View):
 
     def obtenerCarrito(request):
+
+        if 'sucursal' not in request.session:
+            messages.warning(request, 'Antes debe elegir una sucursal')
+            return HttpResponseRedirect('/')
 
         form = AlimentoIDForm()
         alimentos = request.session['alimentos']
@@ -82,6 +87,8 @@ class VistaCarrito(View):
                 alimentoPedido = AlimentoPedido.objects.create(alimento=alimento, cantidad=datos[1], pedido=pedido, subtotal=subtotal)
             pedido.total = total
             pedido.save()
+            request.session.flush()
+            messages.success(request, 'Gracias por su compra. En instantes llegará su pedido')
             return HttpResponseRedirect('/')
 
     def obtenerCantItems(request):

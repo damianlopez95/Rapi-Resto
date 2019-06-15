@@ -255,9 +255,29 @@ body {
     text-align: center;
   }
 
-/* Valores para el página de bienvenida */
+/* Valores para la página de bienvenida */
 
 #logo-container {
     text-align: center;
     background-color: #000;
+}
+
+/* Valores para los mensajes mostrados en inicio e integración de GoogleMaps */
+
+#mensajes {
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+#contenedor_mapa {
+    width: 100%;
+    text-align: center;
+    height: 1000px;
+    padding-top: 320px;
+
+}
+#mapa {
+    height: 500px;
+    width: 100%;
 }
