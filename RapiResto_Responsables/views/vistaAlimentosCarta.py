@@ -17,7 +17,7 @@ class VistaAlimentoCarta(View) :
             form = AlimentoCartaForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect('/listacarta' + str(pkcarta))
+                return HttpResponseRedirect('/listacarta/' + str(pkcarta))
 
         form = AlimentoCartaForm()
         carta = Carta.objects.get(pk = pkcarta)
