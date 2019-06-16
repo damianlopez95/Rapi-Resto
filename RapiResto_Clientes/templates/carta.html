@@ -3,7 +3,7 @@
     {% block title %}
         <title>Lista de alimentos | RapiResto</title>
     {% endblock title %}
-   
+
     {% block content %}
         <div id="container-return"><a href="/{{sucursal}}/cartas"><span class="oi oi-chevron-left"></span></a></div>
         <div class="fluid-container" id="vistaCarta">
@@ -14,7 +14,21 @@
                         <div class="col-12 col-md-4 col-lg-3 mb-4">
                             <div class="card mx-auto text-center border-warning" id="carta-alimento">
                                 {% if alimentoCarta.alimento.imagen != None %}
-                                    <img class="img-fluid" id='imagen-carta' src="/static/assets/{{alimentoCarta.alimento.imagen}}" class="card-img-top">
+                                    <a data-target="#a{{alimentoCarta.alimento.id}}" data-toggle="modal" href="#" class="color-gray-darker td-hover-none" style="width:100%">
+                                        <img class="img-fluid" id='imagen-carta' src="/static/assets/{{alimentoCarta.alimento.imagen}}" class="card-img-top" style="width:100%">
+                                    </a>
+                                    <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="a{{alimentoCarta.alimento.id}}" role="dialog" tabindex="-1">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body mb-0 p-0">
+                                                    <img src="/static/assets/{{alimentoCarta.alimento.imagen}}" alt="" style="width:100%">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-outline-warning btn-rounded btn-md ml-4 text-center" data-dismiss="modal" type="button">Cerrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 {% endif %}
                                 <form method="post" action="/agregaritem">
                                 {% csrf_token %}
@@ -60,6 +74,7 @@
                 </div> 
         </div>
     </div>
+
     {% endblock content %}
     {% block app_javascript %}
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
