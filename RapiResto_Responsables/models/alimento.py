@@ -12,7 +12,7 @@ class Alimento(models.Model):
     precio          = models.DecimalField(max_digits=6, decimal_places=2, null=False)
     categoria       = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=False)
     recomendaciones = models.ManyToManyField('self', blank=True)
-    imagen          = models.ImageField(blank=True, null=True)
+    imagen          = models.ImageField(blank=True, null=True, upload_to='optimized_images/')
 
     class Meta:
         ordering = ['categoria', 'nombre']
@@ -21,12 +21,25 @@ class Alimento(models.Model):
         return str(self.nombre)
 
     def save(self, *args, **kwargs):
+
         if self.imagen:
-            imagen = Image.open(self.imagen)
-            resize = imagen.resize((1280, 720), Image.ANTIALIAS)
-            new_image = BytesIO()
-            resize.save(new_image, format=imagen.format, quality=75)
-            temp_name = os.path.split(self.imagen.name)[1]
-            print(temp_name)
-            self.imagen.save(temp_name, content=ContentFile(new_image.getvalue()), save=False)
+            try:
+                this = Alimento.objects.get(id=self.id)
+                if this.imagen != self.imagen:
+                    if 'optimized_images' not in self.imagen.path:
+                        imagen = Image.open(self.imagen)
+                        resize = imagen.resize((1280, 720), Image.ANTIALIAS)
+                        new_image = BytesIO()
+                        resize.save(new_image, format=imagen.format, quality=75)
+                        temp_name = self.imagen.name
+                        self.imagen.save(temp_name, content=ContentFile(new_image.getvalue()), save=False)
+            except:
+                if 'optimized_images' not in self.imagen.path:
+                    imagen = Image.open(self.imagen)
+                    resize = imagen.resize((1280, 720), Image.ANTIALIAS)
+                    new_image = BytesIO()
+                    resize.save(new_image, format=imagen.format, quality=75)
+                    temp_name = self.imagen.name
+                    self.imagen.save(temp_name, content=ContentFile(new_image.getvalue()), save=False)
         super(Alimento, self).save(*args, **kwargs)
+

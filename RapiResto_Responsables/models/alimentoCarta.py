@@ -8,5 +8,8 @@ class AlimentoCarta(models.Model):
     stock       = models.PositiveIntegerField(default=0, blank=False)
     carta       = models.ForeignKey(Carta, on_delete=models.CASCADE, null=False)
 
+    class Meta:
+        unique_together = (('alimento','carta'))
+
     def __str__(self):
         return ('Carta ' + str(self.carta) + ' | Alimento ' + str(self.alimento))
