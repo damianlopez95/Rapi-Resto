@@ -4,7 +4,7 @@
     <title>AlimentoCarta | RapiResto</title>
 {% endblock title %}
 {% block description %}
-    <h1>Cargar alimento en carta</h1>
+    <h1>Cargar alimento en {{carta.nombre}}</h1>
 {% endblock description %}
 {% block navigation %}
     <li><a href="/listacartas">Cartas</a></li>
@@ -16,7 +16,7 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-row" style="padding:10px;">
-                <div id="div_id_alimento" class="form-group col-md-8">
+                <div id="div_id_alimento" class="form-group col-md-6">
                     <label for="id_alimento" class="col-form-label  requiredField">Alimento<span class="asteriskField">*</span></label>
                     <div class="">
                         <select name="alimento" class="select form-control" required id="id_alimento">
@@ -38,9 +38,8 @@
                 <div id="div_id_carta" class="form-group col-md-6">
                     <label for="id_carta" class="col-form-label  requiredField">Carta<span class="asteriskField">*</span></label>
                     <div class="">
-                        <select name="carta" class="select form-control" required id="id_carta">
-                            <option value="{{carta.id}}">{{carta}}</option>
-                        </select>
+                        <input class="form-control" type="text" value="{{carta}}" readonly>
+                        <input type="hidden" name="carta" id="id_carta" value="{{carta.id}}" required>
                     </div>
                 </div>
             </div>

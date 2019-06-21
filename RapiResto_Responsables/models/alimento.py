@@ -27,6 +27,7 @@ class Alimento(models.Model):
                 this = Alimento.objects.get(id=self.id)
                 if this.imagen != self.imagen:
                     if 'optimized_images' not in self.imagen.path:
+                        print(self.imagen.path)
                         imagen = Image.open(self.imagen)
                         resize = imagen.resize((1280, 720), Image.ANTIALIAS)
                         new_image = BytesIO()

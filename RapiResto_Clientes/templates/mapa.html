@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Language" value="es-AR" />
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+		<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+	</head>
+	<body>
+		<div class="fluid-container" id='map'>
+		</div>
+		<script>
+			var map = L.map('map').setView([-54.81,  -68.32], 13);
+
+			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+			}).addTo(map);
+
+			{% for sucursal in sucursales %}
+				L.marker(["{{sucursal.latitud}}", "{{sucursal.longitud}}"]).addTo(map)
+					.bindPopup('RapiResto <br>Sucursal: {{sucursal.numero}} | {{sucursal.direccion}}')
+					.openPopup();
+			{% endfor %}
+		</script>
+	</body>
+</html>

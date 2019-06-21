@@ -71,15 +71,17 @@
     </div><br>
     <div id="confirm-container">
         <form action="/{{carta.id}}/crearalimentocarta">
-            {% if permisos.GestorDeCartas %}
-                <button class="btn btn-warning" type="submit">Añadir producto</button>
+            {% ifequal request.user.usuario.sucursal.numero carta.sucursal.numero %}
+                {% if permisos.GestorDeCartas %}
+                    <button class="btn btn-warning" type="submit">Añadir producto</button>
+                {% endif %}
             {% else %}
                 {% if permisos.Superuser %}
                     <button class="btn btn-warning" type="submit">Añadir producto</button>
                 {% else %}
                     <button class="btn btn-warning" type="submit" disabled>Añadir producto</button>
                 {% endif %}
-            {% endif %}
+            {% endifequal %}
         </form>
     </div>
 {% endblock content %}

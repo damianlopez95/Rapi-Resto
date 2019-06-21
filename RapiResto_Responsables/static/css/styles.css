@@ -28,10 +28,36 @@ body {
     position: absolute !important;
     bottom: 0;
     width: 100%;
+    color: black;
     height: 2.5rem;            /* Footer height */
     background-color: rgb(255, 51, 0, 0.85);
 }
-
+@media (min-width: 550px) {
+    .alignone {
+        float: left;
+        padding-left: 20px;
+    }
+    .aligntwo {
+        float: right;
+        padding-right: 20px;
+    }
+}
+@media (max-width: 550px) {
+    #footer {
+        height: 5rem;
+    }
+    .alignone {
+        text-align: center !important;
+    }
+    .aligntwo {
+        text-align: center !important;
+    }
+}
+@media (max-width: 360px) {
+    #footer {
+        height: 6.5rem;
+    }
+}
 /* Valores para página de selección de sucursal */
 
 #login-container {
@@ -157,6 +183,11 @@ body {
         padding-left: 23%;
     }
 }
+@media(max-width: 550px) {
+    .row-alimento {
+        padding-bottom: 40px;
+    }
+}
 #container-alimentos {
     text-align: center;
 }
@@ -216,6 +247,11 @@ body {
         border: 2px solid #000;
     }
 }
+@media(max-width: 550px) {
+    #vistaCartas {
+        padding-bottom: 70px;
+    }
+}
 
 /* Valores para página del carrito de compras */
 
@@ -226,7 +262,6 @@ body {
     padding-left: 20px;
     padding-right: 20px;
 }
-
 #confirm-container {
     align-content: left;
     align-self: center;
@@ -239,6 +274,11 @@ body {
     width: 10px;
     padding-top: 20px;
     padding-left: 50%;
+}
+@media(max-width: 550px) {
+    #confirm-container {
+        padding-bottom: 70px;
+    }
 }
 
 /* Valores para el contador del carrito de compras */
@@ -269,7 +309,6 @@ body {
     color: white;
     text-align: center;
 }
-
 #contenedor_mapa {
     width: 100%;
     text-align: center;
@@ -277,7 +316,9 @@ body {
     padding-top: 320px;
 
 }
-#mapa {
-    height: 500px;
-    width: 100%;
+#map {
+    max-width:100%;
+    height:450px;
+    border-radius: 5px;
 }
+

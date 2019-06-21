@@ -1,5 +1,4 @@
 {% extends 'base_02.html' %}
-
 {% block title %}
     <title>Carta | RapiResto</title>
 {% endblock title %}
@@ -24,9 +23,8 @@
                 <div id="div_id_sucursal" class="form-group col-md-6">
                     <label for="id_sucursal" class="col-form-label requiredField">Sucursal<span class="asteriskField">*</span> </label> 
                     <div class="">
-                        <select name="sucursal" class="select form-control" required id="id_sucursal">
-                            <option value="{{request.user.usuario.sucursal.numero}}" selected>{{request.user.usuario.sucursal}}</option>
-                        </select>
+                        <input class="form-control" type="text" value="{{request.user.usuario.sucursal}}" readonly>
+                        <input type="hidden" name="sucursal" value="{{request.user.usuario.sucursal.numero}}" required>
                     </div>
                 </div>
             </div>

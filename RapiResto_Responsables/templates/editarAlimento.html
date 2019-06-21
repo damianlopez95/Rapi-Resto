@@ -1,8 +1,10 @@
 {% extends 'base_02.html' %}
-
 {% block title %}
     <title>Alimento | RapiResto</title>
 {% endblock title %}
+{% block css_styles %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+{% endblock css_styles %}
 {% block description %}
     <h1>Edición de alimento</h1>
 {% endblock description %}
@@ -49,7 +51,7 @@
                 <div id="div_id_recomendaciones" class="form-group col-md-8">
                     <label for="id_recomendaciones" class="col-form-label ">Recomendaciones</label>
                     <div class="">
-                        <select name="recomendaciones" class="selectmultiple form-control" id="id_recomendaciones" multiple>
+                        <select class="js-example-basic-multiple" name="recomendaciones" id="id_recomendaciones" multiple="multiple" style="width:100%">
                             {% for recomendacion in alimento.recomendaciones.all %}
                                 <option value="{{recomendacion.id}}" selected>{{recomendacion.nombre}}</option>
                             {% endfor %}
@@ -62,16 +64,19 @@
             </div>
             <div class="form-row" style="padding:10px;">
                 <div id="div_id_descripcion" class="form-group col-md-8">
-                    <label for="id_descripcion" class="col-form-label ">Descripcion</label>
+                    <label for="id_descripcion" class="col-form-label ">Descripción</label>
                     <div class="">
                         <textarea name="descripcion" cols="40" rows="3" class="textarea form-control" id="id_descripcion" value>{{alimento.descripcion}}</textarea> 
                     </div>
                 </div>
              </div>
             <div class="form-row" style="padding:10px;">
-                <div id="div_id_imagen" class="form-group">
-                    <label for="id_imagen" class="col-form-label ">Imagen</label>
-                    <div class="">Actualmente: <a href="{{alimento.imagen}}">{{alimento.imagen}}</a>
+                <div id="div_id_imagen" class="form-group col-md-8">
+                    <label for="id_imagen" class="col-form-label ">Imagen actual</label>
+                        <div class="">
+                            <img src="/static/assets/{{alimento.imagen}}" style="max-width:100%;">
+                        </div>
+                    <div class=""></a><br>
                         <input type="file" name="imagen" accept="image/*" class="clearablefileinput" id="id_imagen">
                     </div>
                 </div>
@@ -82,4 +87,11 @@
         </form>
     </div>
 {% endblock content %}
-
+{% block app_javascript %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+{% endblock app_javascript %}

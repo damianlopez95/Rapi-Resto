@@ -3,6 +3,9 @@
 {% block title %}
     <title>Alimentos | RapiResto</title>
 {% endblock title %}
+{% block css_styles %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+{% endblock css_styles %}
 {% block description %}
     <h1>Agregar nuevo alimento</h1>
 {% endblock description %}
@@ -45,7 +48,7 @@
                 <div id="div_id_recomendaciones" class="form-group col-md-8">
                     <label for="id_recomendaciones" class="col-form-label ">Recomendaciones</label>
                     <div class="">
-                        <select name="recomendaciones" class="selectmultiple form-control" id="id_recomendaciones" multiple>
+                        <select class="js-example-basic-multiple" name="recomendaciones" id="id_recomendaciones" multiple="multiple" style="width:100%">
                             {% for alimento in alimentos %}
                                 <option value="{{alimento.id}}">{{alimento.nombre}}</option>
                             {% endfor %}
@@ -75,4 +78,11 @@
         </form>
     </div>
 {% endblock content %}
-
+{% block app_javascript %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+{% endblock app_javascript %}

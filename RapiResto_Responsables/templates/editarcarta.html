@@ -24,18 +24,18 @@
                 <div id="div_id_sucursal" class="form-group col-md-6">
                     <label for="id_sucursal" class="col-form-label requiredField">Sucursal<span class="asteriskField">*</span> </label> 
                     <div class="">
-                        <select name="sucursal" class="select form-control" required id="id_sucursal">
-                            <option value="{{request.user.usuario.sucursal.numero}}" selected>{{request.user.usuario.sucursal}}</option>
-                        </select>
+                        <input class="form-control" type="text" value="{{request.user.usuario.sucursal}}" readonly>
+                        <input type="hidden" name="sucursal" value="{{request.user.usuario.sucursal.numero}}" required>
                     </div>
                 </div>
             </div>
             <div class="form-row" style="padding:10px;">
-                <div id="div_id_imagen" class="form-group col-md-4"> 
+                <div id="div_id_imagen" class="form-group col-md-6"> 
                         <label for="id_imagen" class="col-form-label ">Imagen</label> 
-                    <div class=""> Actualmente: <a href="{{carta.imagen}}">{{carta.imagen}}</a>
+                        <div class="">
+                            <img src="/static/assets/{{carta.imagen}}" style="max-width:100%;">
+                        </div><br>
                         <input type="file" name="imagen" accept="image/*" class="clearablefileinput" id="id_imagen">
-                    </div> 
                 </div>
             </div>
             <div class="form-row" style="padding:10px;">

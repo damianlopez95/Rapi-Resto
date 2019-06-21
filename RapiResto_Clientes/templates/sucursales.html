@@ -1,5 +1,4 @@
 {% extends 'base_01.html' %}
-
     {% block content %}
         <div class="container h-100" id="login-container">
             <div class="d-flex justify-content-center h-100">
@@ -36,10 +35,9 @@
                 </div>
             </div>
         </div>
-
         <div class='container' id='contenedor_mapa'>
             <h1>¿Dónde estamos?</h1><br>
-            <iframe id='mapa' src="https://www.google.com/maps/d/u/0/embed?mid=1JofZ2jvH0Q6c92RGe_-Lyz6VGDdkZ1WN"></iframe>
+            {% include 'mapa.html' %}
         </div>
     {% endblock content %}
     {% block app_javascript %}
