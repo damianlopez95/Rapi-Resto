@@ -1,5 +1,5 @@
 {% extends 'base_02.html' %}
-
+{% load static %}
 {% block title %}
     <title>Carta</title>
 {% endblock title %}
@@ -22,7 +22,7 @@
                     <th>Alimento</th>
                     <th>Stock (u)</th>
                     <th>Sucursal</th>
-                    <th></th>
+                    <th>Gestión</th>
                 </tr>
             </thead>
             <tbody>
@@ -91,7 +91,16 @@
     <script src="//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready( function () {
-            $('table').DataTable();
+            $('table').DataTable(
+                {
+                    "language" : {
+                        "url" : "{% static 'js/Spanish.json' %}"
+                    },
+                    "columnDefs" : [
+                     {"orderable" : false, "targets" : 3}
+                    ]
+                }
+            );
         } );
     </script>
     <script>

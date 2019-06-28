@@ -25,7 +25,7 @@
 			function recorrerSucursales(sucursal) {
 				nro ++;
 				L.marker([sucursal["fields"]["latitud"], sucursal["fields"]["longitud"]]).addTo(map)
-				.bindPopup("RapiResto | Suc: " + nro + " | " + sucursal["fields"]["direccion"])
+				.bindPopup("RapiResto <br> Sucursal: " + nro + "<br>" + sucursal["fields"]["direccion"])
 				.openPopup();
 			}
 		</script>
