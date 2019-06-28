@@ -18,15 +18,15 @@
 				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(map);
 
-			recorrerSucursales({{ coordenadas|safe }});
+			var nro = 0;
+			var coordenadasRR = {{ coordenadas|safe }};
+			coordenadasRR.forEach(recorrerSucursales);
 
-			function recorrerSucursales(coordenadas) {
-				for (i=0; i<coordenadas.length; i++) {
-					console.log(coordenadas[i]["fields"]["direccion"]);
-					L.marker([coordenadas[i]["fields"]["latitud"], coordenadas[i]["fields"]["longitud"]]).addTo(map)
-					.bindPopup("RapiResto | Suc: " + (i+1) + " | " + coordenadas[i]["fields"]["direccion"])
-					.openPopup();
-				}
+			function recorrerSucursales(sucursal) {
+				nro ++;
+				L.marker([sucursal["fields"]["latitud"], sucursal["fields"]["longitud"]]).addTo(map)
+				.bindPopup("RapiResto | Suc: " + nro + " | " + sucursal["fields"]["direccion"])
+				.openPopup();
 			}
 		</script>
 	</body>
