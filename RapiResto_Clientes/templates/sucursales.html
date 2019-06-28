@@ -65,7 +65,7 @@
                         console.log(result);
                             $("#elegirmesa option").remove();
                             for (var i = 0 ; i < result.length ; i++) {
-                                $("#elegirmesa").append('<option>'+ result[i].mesa +'</option>');    
+                                $("#elegirmesa").append('<option>'+ result[i]["fields"]["numero"] +'</option>');    
                             };
                     }
                     });

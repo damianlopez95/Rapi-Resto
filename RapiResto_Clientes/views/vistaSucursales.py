@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import json as simplejson
+from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import View
 
@@ -23,18 +24,17 @@ class VistaSucursales(View):
                 return HttpResponseRedirect(str(mesa.sucursal.numero) + '/cartas')
 
         sucursales = Sucursal.objects.all()
+        coordenadas = serializers.serialize('json', list(sucursales), fields=('direccion','latitud','longitud'))
         return render(request, 'sucursales.html', {
             "sucursales":sucursales,
+            "coordenadas":coordenadas,
             "form":form
         })
 
     def obtenerMesas(request):
 
         dato_sucursal = request.GET['suc']
-        resultado = []
         respuesta = int(dato_sucursal.split()[0])
         sucursal = Sucursal.objects.get(numero=respuesta)
-        mesas = sucursal.mesas.all()
-        for mesa in mesas:
-            resultado.append({'mesa':mesa.numero})
-        return HttpResponse(simplejson.dumps(resultado), content_type='application/json')
+        mesas = serializers.serialize('json', list(sucursal.mesas.all()))
+        return HttpResponse(mesas, content_type='application/json')
